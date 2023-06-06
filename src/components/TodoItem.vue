@@ -13,6 +13,7 @@ const props = defineProps({
 })
 const emit = defineEmits(["todo-toggle-complete", "todo-edit", "update-todo", "delete-todo"])
 
+// Git pull
 let value = props.todo.todo;
 
 const handleChange = (e) => {
