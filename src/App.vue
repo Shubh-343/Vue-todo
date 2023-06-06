@@ -23,6 +23,3 @@ import Navigation from './components/Navigation.vue';
   margin: 0 auto;
 }
 </style>
-
-
-//testing is must
