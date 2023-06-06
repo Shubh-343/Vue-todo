@@ -11,21 +11,31 @@ const props = defineProps({
         required: true
     },
 })
+const emit = defineEmits(["todo-toggle-complete", "todo-edit", "update-todo", "delete-todo"])
 
-defineEmits(["todo-toggle-complete", "todo-edit" ,"update-todo" , "delete-todo"])
+let value = props.todo.todo;
+
+const handleChange = (e) => {
+    value = e.target.value 
+}
+
+const handleClick = () => {
+    emit('update-todo', value, props.index)
+    emit('todo-edit', props.index)
+}
 </script>
 
 <template>
     <li>
         <input type="checkbox" :checked="todo.isCompleted" @input="$emit('todo-toggle-complete', index)" />
         <div class="todo">
-            <input type="text" v-if="todo.isEdit" :value="todo.todo" @input="$emit('update-todo' , $event.target.value, index)"/>
+            <input type="text" v-if="todo.isEdit" :value="todo.todo" @input="handleChange" />
             <span v-else :class="{ 'completed-todo': todo.isCompleted }">{{ todo.todo }}</span>
         </div>
         <div class="todo-actions">
-            <Icon v-if="todo.isEdit" icon="ph:check-circle" class="icon" color="#41b080" width="22" @click="$emit('todo-edit', index)" />
+            <Icon v-if="todo.isEdit" icon="ph:check-circle" class="icon" color="#41b080" width="22" @click="handleClick" />
             <Icon v-else icon="ph:pencil-fill" class="icon" color="#41b080" width="22" @click="$emit('todo-edit', index)" />
-            <Icon icon="ph:trash" class="icon" color="#f95e5e" width="22" @click="$emit('delete-todo',todo.id)"/>
+            <Icon icon="ph:trash" class="icon" color="#f95e5e" width="22" @click="$emit('delete-todo', todo.id)" />
         </div>
     </li>
 </template>

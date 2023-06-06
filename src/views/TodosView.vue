@@ -7,8 +7,6 @@ import TodoItem from '../components/TodoItem.vue';
 
 const todoList = ref([]);
 
-console.log("feature branch");
-
 watch((todoList), () => {
   setTodoListLocalStorage();
 }, {
@@ -41,7 +39,7 @@ const toggleTodoComplete = (todoPos) => {
   todoList.value[todoPos].isCompleted = !todoList.value[todoPos].isCompleted;
 }
 const handleEdit = (todoPos) => {
-  todoList.value[todoPos].isEdit = !todoList.value[todoPos].isEdit;
+  todoList.value.filter((todo , index) => index === todoPos ? todo.isEdit = !todo.isEdit : todo.isEdit = false)
 }
 
 const handleUpdate = (value, todoPos) => {
